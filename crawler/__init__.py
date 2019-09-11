@@ -1,13 +1,14 @@
-import re
-import requests
-
 # UrlManager
 from urllib.request import urlopen
 from urllib.parse import urljoin
 
 # crawler
-from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
+from bs4 import BeautifulSoup
+
+import requests
+import re
+
 
 
 class UrlManager:
@@ -16,7 +17,7 @@ class UrlManager:
         self.paths = {
             'main': 'main/'
         }
-    
+
     def get(self, path, is_alias=False):
         if is_alias:
             return urljoin(self.domain, self.paths.get(path, path))
@@ -30,13 +31,14 @@ class NewsCollector:
     def __init__(self):
         self.UrlManager = UrlManager()
         self.articles = {}
-    
+        self.today = datetime.now()
+
     def get_html(self, url):
         res = requests.get(url)
 
         if not res.ok:
             raise Exception('connection error')
-        
+
         return res
     
     def parse_response_to_bs(self, response, features='html.parser'):
@@ -47,20 +49,20 @@ class NewsCollector:
     
     def get_elements_by_css(self, bs_page, css_selector):
         return bs_page.select(css_selector)
-
+    
     def format_date(self, dt):
         if re.search("분 전$", dt):
-            return today - timedelta(minutes=int(dt[:-3]))
+            return self.today - timedelta(minutes=int(dt[:-3]))
         elif re.search("시간 전$", dt):
-            return today - timedelta(hours=int(dt[:-4]))
+            return self.today - timedelta(hours=int(dt[:-4]))
         elif re.search("일 전$", dt):
-            return today - timedelta(days=int(dt[:-3]))
+            return self.today - timedelta(days=int(dt[:-3]))
         else:
             return datetime.strptime(dt, "%Y.%m.%d")
     
     def collect_latest(self, path="main"):
         """최신 기사 크롤링"""
-        url = self.main_um.get(path, is_alias=True)
+        url = self.UrlManager.get(path, is_alias=True)
         main_page = self.get_html(url)
         main_page = self.parse_response_to_bs(main_page)
         
@@ -83,7 +85,7 @@ class NewsCollector:
     
     def collect_main(self, path="main"):
         """주요 기사 크롤링"""
-        url = self.um_it.get(path, is_alias=True)
+        url = self.UrlManager.get(path, is_alias=True)
         main_page = self.get_html(url)
         main_page = self.parse_response_to_bs(main_page)
         
