@@ -1,0 +1,251 @@
+<!-- Doing Development -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ITNEWS</title>
+    <!-- bootstrap4 css cdn -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Vue.js 도움되는 콘솔 경고를 포함한 개발 버전 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- Vue.js 상용버전, 속도와 용량이 최적화됨. -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+</head>
+<body>
+    <div id="app">
+        <h1 class="pt-4 pb-4 text-center">{{ title }}</h1>
+        <div class="container">
+            <div class="row pb-4">
+                <div class="col-6 bg-danger text-center">
+                    최신 기사
+                </div>
+                <div class="col-6 bg-warning text-center">
+                    메인 기사
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <ul>
+                        <li v-for="article in main">
+                            {{ article.title }} | {{ article.date }} | 
+                            <a :href="'https://www.itworld.co.kr' + article.url">link</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vue.js App -->
+    <!-- <script scr="./js/app.js"></script> -->
+    <script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            title: 'ITNEWS',
+            items: [{message: 'Foo'}, {message: 'Bar'}],
+            main: [
+                {
+                    'title': '즉석 리뷰 | 매력 가득한 문제작, 삼성 갤럭시 폴드',
+                    'content': '',
+                    'themes': [{'name': '스마트폰', 'url': '/t/62075/스마트폰'},
+                    {'name': '안드로이드', 'url': '/t/62079/안드로이드'}],
+                    'date': '2019-09-11T23:53:13',
+                    'url': '/news/130967'
+                },
+                {
+                    'title': '“PC와 비교는 그만” 애플의 아이패드 ‘어그로’ 전략에는 무관심이 해법 ',
+                    'content': '',
+                    'themes': [{'name': 'iOS', 'url': '/t/54647/iOS'},
+                    {'name': '디지털 디바이스', 'url': '/t/55815/디지털 디바이스'},
+                    {'name': '태블릿', 'url': '/t/54651/태블릿'}],
+                    'date': '2019-09-11T23:53:13',
+                    'url': '/news/130927'
+                },
+                {
+                    'title': "'투자 대비 효용 최대 해상도' 1,440p 게임에 딱 맞는 GPU 찾기",
+                    'content': '',
+                    'themes': [{'name': '퍼스널 컴퓨팅', 'url': '/t/62074/퍼스널 컴퓨팅'}],
+                    'date': '2019-09-10T23:53:13',
+                    'url': '/news/130838'
+                },
+                {
+                    'title': '즉석 리뷰 | 듀얼 스크린이 강점인 무난한 스마트폰, LG G8X 씽큐',
+                    'content': '',
+                    'themes': [{'name': '스마트폰', 'url': '/t/62075/스마트폰'},
+                    {'name': '안드로이드', 'url': '/t/62079/안드로이드'}],
+                    'date': '2019-09-10T23:53:13',
+                    'url': '/news/130887'
+                },
+                {
+                    'title': '아크로뱃 리더, 일반 버전도 괜찮을까?···스탠다드 DC와 프로 DC 완전 비교',
+                    'content': '',
+                    'themes': [{'name': '오피스＆협업', 'url': '/t/40/오피스＆협업'},
+                    {'name': '퍼스널 컴퓨팅', 'url': '/t/62074/퍼스널 컴퓨팅'}],
+                    'date': '2019-09-09T23:53:13',
+                    'url': '/news/130754'
+                },
+                {
+                    'title': '글로벌 칼럼 | 되돌아보는 6년의 기술 진화와 변화',
+                    'content': '',
+                    'themes': [{'name': '사물인터넷', 'url': '/t/63417/사물인터넷'}],
+                    'date': '2019-09-09T23:53:13',
+                    'url': '/news/130734'
+                },
+                {
+                    'title': '구글 스태디아의 클라우드 게이밍 체험 후기 “인상적이지만 홍보용 게임 아쉬워”',
+                    'content': '',
+                    'themes': [{'name': '웹서비스', 'url': '/t/62085/웹서비스'}],
+                    'date': '2019-09-06T00:00:00',
+                    'url': '/news/130578'
+                },
+                {
+                    'title': 'USB4 기술 사양 완료…썬더볼트 통합으로 최신 이더넷급 속도 기대',
+                    'content': '',
+                    'themes': [{'name': '네트워크', 'url': '/t/62078/네트워크'},
+                    {'name': '미래기술', 'url': '/t/65212/미래기술'},
+                    {'name': '서버', 'url': '/t/62080/서버'}],
+                    'date': '2019-09-06T00:00:00',
+                    'url': '/news/130566'
+                },
+                {
+                    'title': 'MS, 라이선스의 ‘클라우드 구멍’ 막는다…경쟁 클라우드에 악재 예상',
+                    'content': '',
+                    'themes': [{'name': '윈도우', 'url': '/t/54650/윈도우'},
+                    {'name': '클라우드', 'url': '/t/34/클라우드'}],
+                    'date': '2019-09-05T00:00:00',
+                    'url': '/news/130454'
+                },
+                {
+                    'title': '인공지능 및 머신러닝 프로젝트, 얼마나 안전할까',
+                    'content': '',
+                    'themes': [
+                        {'name': 'CIO', 'url': '/t/62081/CIO'},
+                        {'name': '머신러닝', 'url': '/t/69500/머신러닝'},
+                        {'name': '보안', 'url': '/t/36/보안'},
+                        {'name': '클라우드', 'url': '/t/34/클라우드'}
+                    ],
+                    'date': '2019-09-05T00:00:00',
+                    'url': '/news/130439'
+                },
+                {
+                    'title': '“내가 다윗이다” 3대 클라우드 서비스에 도전하는 소형 클라우드 열전',
+                    'content': '',
+                    'themes': [{'name': '클라우드', 'url': '/t/34/클라우드'}],
+                    'date': '2019-09-04T00:00:00',
+                    'url': '/news/130322'
+                },
+                {
+                    'title': "IDG 블로그 | 올 가을 '애플표' AR 글래스가 발표될 아주 적은 가능성에 대하여",
+                    'content': '',
+                    'themes': [{'name': 'iOS', 'url': '/t/54647/iOS'},
+                    {'name': '미래기술', 'url': '/t/65212/미래기술'}],
+                    'date': '2019-09-04T00:00:00',
+                    'url': '/news/130314'
+                },
+                {
+                    'title': '“GOTY 휩쓴 명작 ‘저니’가 앱 스토어에!” 8월 iOS 신작 게임 5선',
+                    'content': '',
+                    'themes': [{'name': 'iOS', 'url': '/t/54647/iOS'},
+                    {'name': '모바일', 'url': '/t/37/모바일'},
+                    {'name': '퍼스널 컴퓨팅', 'url': '/t/62074/퍼스널 컴퓨팅'}],
+                    'date': '2019-09-03T00:00:00',
+                    'url': '/slideshow/130178'
+                },
+                {
+                    'title': 'IDG 블로그 | 5G 아이폰이 아직 먼 이유',
+                    'content': '',
+                    'themes': [{'name': 'iOS', 'url': '/t/54647/iOS'},
+                    {'name': '모바일', 'url': '/t/37/모바일'}],
+                    'date': '2019-09-03T00:00:00',
+                    'url': '/news/130187'
+                },
+                {
+                    'title': '“속도 기복이 문제” 삼성 갤럭시 노트10플러스에서 경험한 5G 시연',
+                    'content': '',
+                    'themes': [
+                        {'name': '네트워크', 'url': '/t/62078/네트워크'},
+                        {'name': '스마트폰', 'url': '/t/62075/스마트폰'}
+                    ],
+                    'date': '2019-09-02T00:00:00',
+                    'url': '/news/130006'
+                },
+                {
+                    'title': '애플의 9월 행사 “제일 궁금한 3가지”',
+                    'content': '',
+                    'themes': [{'name': 'iOS', 'url': '/t/54647/iOS'},
+                    {'name': '웨어러블컴퓨팅', 'url': '/t/62071/웨어러블컴퓨팅'}],
+                    'date': '2019-09-02T00:00:00',
+                    'url': '/news/129958'
+                },
+                {
+                    'title': '글로벌 칼럼 | “벌써?” 애플의 iOS 13.1로의 이동이 타당한 이유  ',
+                    'content': '',
+                    'themes': [{'name': 'iOS', 'url': '/t/54647/iOS'}],
+                    'date': '2019-08-30T00:00:00',
+                    'url': '/news/129870'
+                },
+                {
+                    'title': '필요할 때 애저 백업이 작동하도록 보장하는 7단계 조치',
+                    'content': '',
+                    'themes': [{'name': '보안', 'url': '/t/36/보안'},
+                    {'name': '스토리지', 'url': '/t/62084/스토리지'},
+                    {'name': '클라우드', 'url': '/t/34/클라우드'}],
+                    'date': '2019-08-30T00:00:00',
+                    'url': '/news/129862'
+                },
+                {
+                    'title': '“아이폰 SE 라인이 부활한다면?” 합리적으로 상상해본 중급 아이폰 ',
+                    'content': '',
+                    'themes': [{'name': 'iOS', 'url': '/t/54647/iOS'},
+                    {'name': '스마트폰', 'url': '/t/62075/스마트폰'}],
+                    'date': '2019-08-29T00:00:00',
+                    'url': '/news/129718'
+                },
+                {
+                    'title': '마이크로소프트의 새로운 크로미엄 웹뷰 컨트롤 시작하기',
+                    'content': '',
+                    'themes': [{'name': '개발자', 'url': '/t/61023/개발자'},
+                    {'name': '브라우저', 'url': '/t/54652/브라우저'}],
+                    'date': '2019-08-29T00:00:00',
+                    'url': '/news/129783'}
+                ],
+            latest: [
+                {
+                    'date': '2019-09-12',
+                    'title': '“데이터는 곧 돈!” 안드로이드 스마트폰 데이터 절약하는 14가지 생활 팁',
+                    'url': '/news/130978'
+                },
+                {
+                    'date': '2019-09-12',
+                    'title': 'iOS 13의 미리 알림 앱으로 생산성을 끌어 올리는 10가지 방법',
+                    'url': '/news/130971'
+                },
+                {
+                    'date': '2019-09-11',
+                    'title': '즉석 리뷰 | 매력 가득한 문제작, 삼성 갤럭시 폴드',
+                    'url': '/news/130967'
+                },
+                {
+                    'date': '2019-09-11',
+                    'title': '그룹웨어 다우오피스, 코딩 없이 직접 협업기능 만드는 ‘웍스’ 앱 1만개 돌파',
+                    'url': '/news/130962'
+                },
+                {
+                    'date': '2019-09-11',
+                    'title': '아직 공개되지 않은 안드로이드 10의 5가지 멋진 기능',
+                    'url': '/news/130954'
+                }
+            ],
+        }
+    })
+    </script>
+    <!-- bootstrap4 js cdn -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
