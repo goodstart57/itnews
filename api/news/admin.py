@@ -16,3 +16,7 @@ class ArticleModelAdmin(admin.ModelAdmin):
 class LatestModelAdmin(admin.ModelAdmin):
     list_display = tuple(map(lambda x: x.name, models.Latest._meta.fields))
 
+
+@admin.register(models.Main)
+class MainModelAdmin(admin.ModelAdmin):
+    list_display = tuple(map(lambda x: x.name, models.Main._meta.fields))
