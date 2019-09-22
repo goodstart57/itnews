@@ -87,7 +87,7 @@ class NewsCollector:
             date = self.format_date(date)
 
             self.articles['latest'].append({
-                'date': date.strftime("%Y-%m-%d"),
+                'date': date.strftime("%Y-%m-%dT%H:%M"),
                 'title': a.text,
                 'content': self.collect_news_content(a.attrs.get('href')),
                 'url': a.attrs.get('href'),
