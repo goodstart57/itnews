@@ -108,7 +108,6 @@ class NewsCollector:
         for main_article in main_articles:
             title = main_article.select_one('.news_list_title')
             url = title.select_one('a').attrs.get('href')
-            title = title.attrs.get('title')
             theme_dt = main_article.select_one('.of-h.cb')
             themes = main_article.select('.news_list_source > a')
             themes = [
@@ -120,7 +119,7 @@ class NewsCollector:
             dt = main_article.select_one('.news_list_time').text.strip()
 
             self.articles['main'].append({
-                'title': title,
+                'title': title.text,
                 'content': self.collect_news_content(url),
                 'themes': themes,
                 'date': self.format_date(dt).strftime("%Y-%m-%dT%H:%M:%S"),
